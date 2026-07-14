@@ -1,0 +1,376 @@
+Software Requirements Specification
+(SRS)
+
+Complaint Management System
+
+4. Introduction
+4.4 Purpose
+
+The purpose of this Software Requirements Specification (SRS) is to provide a
+complete, comprehensive, and unambiguous definition of the functional and non-
+functional requirements for the Complaint Management System. This document is
+intended for all project stakeholders, including project managers, software engineers.
+quality assurance personnel, and end-users, to ensure a shared understanding of
+the system's objectives, functionalities, and constraints. It will serve as the
+foundational blueprint for all development, testing, and deployment activities, guiding
+the technical implementation and providing a basis for formal project acceptance.
+
+The primary goal of the system is to establish a centralized, web-based platform for
+managing grievances. This includes a streamlined process for citizens and
+employees to submit complaints, an efficient workflow for administrators to review
+and assign these complaints, and a transparent mechanism for tracking the
+resolution process. The system aims to significantly reduce manual overhead,
+improve response times, and enhance accountability in the grievance redressal
+process.
+
+1.2 Scope
+
+The Complaint Management System is a web-based application designed to
+manage the full lifecycle of a complaint, from initial submission to final resolution.
+The system will provide distinct, role-specific interfaces and functionalities to serve
+its three primary user groups: Administrators, Employees, and Citizens.
+
+In-Scope Functionalities:
+
+© User Registration & Authentication: The system will provide a secure
+
+1.2 Scope
+
+The Complaint Management System is a web-based application designed to
+manage the full lifecycle of a complaint, from initial submission to final resolution
+The system will provide distinct, role-specific interfaces and functionalities to serve
+its three primary user groups: Administrators, Employees, and Citizens.
+
+In-Scope Functionalities:
+
+* User Registration & Authentication: The system will provide a secure
+method for new citizens to register and for all users to authenticate their
+identity. It will enforce a strict role-based access control (RBAC) model.
+Complaint Submission: A dedicated, user-friendly interface will be provided
+for authenticated citizens and employees to submit new complaints. This
+includes fields for complaint details, category selection, and the option to
+upload supporting documents or images.
+
+iamneo Complaint Management Systom-SRS
+
+An NIIT Venture
+Page 1/24
+
+* Complaint Management Dashboard: Administrators will have a centralized
+dashboard to view, filter, and search all complaints. This dashboard will serve
+as the primary tool for administrators to monitor system-wide activity and
+manage all incoming grievances.
+
+Complaint Assignment: Administrators will possess the exclusive authority
+to assign pending complaints to specific employees for investigation and
+
+Complaint Assignment: Administrators will possess the exclusive authority
+
+to assign pending complaints to specific employees for investigation and
+resolution.
+
+Complaint Resolution Workflow: A clear, defined workflow will be
+established to track the status of each complaint. Employees will be able to
+update the status of complaints assigned to them and add detailed notes or
+comments on their progress.
+
+Status Tracking & History: Citizens and employees who submit complaints
+will be able to monitor the real-time status of their submissions. The system
+will also maintain a detailed history of all changes made to a complaint record
+Reporting & Analytics: The system will provide administrators with a suite of
+reporting tools and an analytics dashboard to generate insights into complaint
+volume, resolution times, and employee performance.
+
+Notification System: An automated system will be implemented to send
+notifications to users regarding important events, such as a change in
+complaint status or the assignment of a new complaint.
+
+Secure Data Handling: All user and complaint data will be handled with
+robust security measures, including data encryption, access controls, and
+input validation to prevent common security vulnerabilities,
+
+Out-of-Scope Functionalities:
+
+Public Complaint Viewing: Complaints will not be publicly visible. Access
+will be restricted to the complainant and authorized personnel
+
+Automated Complaint Assignment: The system will not employ any artificial
+intelligence or machine learning models to automatically route or assign
+complaints. All assignments will be manual and performed by an
+Administrator.
+
+In-App Communication: There will be no built-in chat, instant messaging, or
+private messaging features between users. All formal communication will be
+through the defined complaint notes and an integrated notification system.
+Payment Processing: The system will not process or manage any financial
+transactions, fines, or fees.
+
+Advanced Analytics: The system will not include predictive analytics or
+complex data mining. Reports will be based on standard aggregations and
+
+* Advanced Analytics: The system will not include predictive analytics or
+complex data mining. Reports will be based on standard aggregations and
+filtering of stored data.
+
+iamneo Complaint Management Systom-SRS
+
+—AnNIIT Venture
+
+Page 2/24
+
+1.3 Definitions, Acronyms, and Abbreviations
+
+API (Application Programming Interface): A set of defined rules that enables
+different software programs to communicate.
+
+© BLL (Business Logic Layer): The part of the software that contains the core
+business rules and data processing algorithms.
+
+© CRUD (Create, Read, Update, Delete): The four basic functions of persistent
+storage.
+
+© DBMS (Database Management System): Software for creating and
+managing databases.
+
+* DTO (Data Transfer Object): An object used to carry data between different
+layers of an application.
+
+* HTTPS (Hypertext Transfer Protocol Secure): The secure version of HTTP,
+where communication is encrypted.
+
+« IEEE (Institute of Electrical and Electronics Engineers): A professional
+organization for electronic engineering and electrical engineering.
+
+«JWT (JSON Web Token): A compact, URL-safe means of representing
+
+© JWT (JSON Web Token): A compact, URL-safe means of representing
+claims to be transferred between two parties.
+
+© JPA (Java Persistence API): A specification for managing relational data in
+applications using Java
+
+© RBAC (Role-Based Access Control): An approach to restricting system
+access to authorized users based on their assigned role.
+
+REST (Representational State Transfer): An architectural style for
+designing networked applications.
+
+* SPA (Single-Page Application): A web application that dynamically rewrites
+the current page rather than loading new pages from a server.
+
+* UIUX (User Interface / User Experience): The interface through which
+users interact with a system and the overall experience they have while using
+it.
+
+* WCAG (Web Content Accessibility Guidelines):
+making web content more accessible.
+
+set of guidelines for
+
+1.4 References
+
+¢ IEEE Std 830-1998 for defining Software Requirements Specifications.
+
+© Spring Boot Official Documentation: https://docs.spring io/spring-
+boot/docs/currentireference/html/
+
+React js Official Documentation: https://react dev/
+
+¢ MySQL 8.0 Reference Manual: hitps://dev mysql com/doc/refman/8.O/en/
+* RFC 7519: JSON Web Token (JWT) Specification
+
+1.5 Over
+
+iamneo Complaint Management System-SRS
+
+——An NIIT Venture
+
+Page 3/24
+
+Reena anevey,
+
+This SRS is structured to provide a comprehensive and detailed view of the
+Complaint Management System. Section 1 provides the introductory context,
+including the document's purpose, project scope, definitions, and an overview.
+Section 2, the "Overall Description," details the product's perspective, major
+functions, user classes, and the technical environment. Section 3, "Specific
+Requirements," is the core of the document, presenting a granular breakdown of all
+functional and non-functional requirements. Finally, Section 4 contains extensive
+appendices that provide supplementary information such as a detailed permissions
+matrix, a data dictionary, use cases, and a high-level system architecture. This
+structure ensures that all aspects of the project are thoroughly documented and
+easily accessible to all stakeholders.
+
+2, Overall Description
+2.1 Product Perspective
+
+The Complaint Management System is a self-contained, two-tier web application
+designed to operate independently. It is composed of a frontend built with Reacts
+and a backend built with Spring Boot, which communicate via a secure REST API.
+This layered architecture ensures a clear separation of concerns, allowing for the
+independent development, testing, and scaling of each tier. The frontend handles all
+user interactions and presentation logic, while the backend is responsible for all
+business logic, data validation, security, and persistence. The system will be hosted
+in a cloud environment, providing accessibility from any modem web browser. While
+this project focuses on a standalone management system, its API-driven design
+allows for future integration with other internal or external systems, should the need
+arise
+
+2.2 Product Functions
+The system's core functionalities are organized into distinct modules:
+
+* Authentication Module: This module is responsible for managing user
+identities and access. It provides the necessary interfaces for users to log in
+and for citizens to register. It leverages JWT for stateless session
+
+management and ensures all protected endpoints are secured.
+hmiecian Maditla: Thie mariila nffare 2 etrainhtansard and
+
+= Camnlaint
+
+2.2 Product Functions.
+
+The system's core functionalities are organized into distinct modules:
+
+Authentication Module: This module is responsible for managing user
+identities and access. It provides the necessary interfaces for users to log in
+and for citizens to register. It leverages JWT for stateless session
+management and ensures all protected endpoints are secured.
+
+« Complaint Submission Module: This module offers a straightforward and
+intuitive form for citizens and employees to submit new complaints. The form
+collects essential information, such as the complaint title, a detailed
+description, and the complaint category. It also supports the upload of
+supplementary files to provide additional context.
+
+* Complaint Management Module: This is the central hub for system
+
+administrators. It provides a comprehensive dashboard to view all complaints,
+
+iamneo Complaint Management System-SRS
+
+‘An NIIT Venture
+
+Page 4/24
+
+regardless of status or assignment. Administrators can use advanced filtering
+and sorting tools to efficiently find specific complaints and perform
+management actions such as assignment and deletion
+
+* Complaint Resolution Workflow: This module governs the lifecycle of a
+complaint. It defines a set of statuses (PENDING, ASSIGNED,
+IN_PROGRESS, RESOLVED, CLOSED) that track the complaint's progress.
+It provides employees with a dedicated interface to view and update the
+
+* Complaint Resolution Workflow: This module governs the lifecycle of a
+complaint. It defines a set of statuses (PENDING, ASSIGNED.
+IN_PROGRESS, RESOLVED, CLOSED) that track the complaint's progress.
+It provides employees with a dedicated interface to view and update the
+status of the complaints assigned to them, as well as to add intemal notes on
+their resolution efforts.
+
+* Status Tracking Module: This module offers a dedicated view for users who
+have submitted complaints. They can log in to their personal dashboard to
+monitor the current status of their submissions, providing transparency and
+eliminating the need for manual inquiries.
+
+* Reporting & Analytics Module: The system includes a reporting engine and
+an analytics dashboard for administrators. This module processes complaint
+data to generate insights, such as complaint submission trends over time, the
+distribution of complaints by category, and performance metrics for individual
+employees.
+
+¢ Notification System: A crucial component for keeping users informed, this
+system automatically sends alerts to users when a significant event occurs,
+such as a complaint being assigned to an employee or a status change in a
+submitted complaint.
+
+e User Profile Module: This module allows all users to access and update their
+personal profile information, such as their name and contact details, ensuring
+that user data remains accurate and current.
+
+2.3 User Classes and Characteristics
+
+The system is designed to serve three distinct user classes, each with specific
+permissions and responsibilities.
+
+© Admin:
+
+Permissions: Full system access. The ADMIN role has the highest
+level of authority and can perform all CRUD operations on complaints,
+user accounts, and system data. They are responsible for assigning
+complaints to employees, generating system-wide reports, and
+configuring user roles.
+
+2 Characteristics: This user is typically a senior manager or a system
+administrator. They require a complete overview of all operations,
+
+ser 1S Typically @ SEMOTT
+administrator. They require a complete overview of all operations,
+including monitoring employee workload and system performance.
+They are expected to be proficient with the application and have a
+good understanding of the grievance proce:
+
+iam n €o Complaint Management Syster-SRS
+
+——An NIIT Venture
+
+Page 5/24
+
+Employee:
+Permissions: Restricted access. EMPLOYEEs can only view
+complaints assigned to them. They have the authority to update the
+status of an assigned complaint and add comments or notes. They
+cannot assign complaints, view other employees’ complaint queues, or
+manage user accounts.
+
+© Characteristics: This user is a staff member responsible for
+investigating and resolving complaints. Their primary goal is to
+efficiently manage their assigned workload and document their
+progress. They require a clear and concise interface focused on their
+immediate tasks.
+
+© Citizen:
+
+© Permissions: Limited access. CITIZENs can register an account, log
+
+in, submit new complaints, and track the status of their own
+submissions. They cannot view or modify other users’ data, view other
+complaints, or perform any administrative actions.
+
+submissions. They cannot view or modify other users’ data, view other
+complaints, or perform any administrative actions.
+
+Characteristics: This is the end-user of the system, such as a resident
+ora customer. They are expected to have minimal technical
+proficiency. Their primary goal is to easily submit a grievance and
+monitor its progress without any unnecessary complexity.
+
+2.4 Operating Environment
+
+The system is a distributed application with a clear separation between the frontend
+and backend.
+
+« Frontend Environment:
+Framework: Reacts (latest stable version).
+Languages: JavaScript (ES6+), HTML5, CSS3.
+Styling: A moder CSS framework like Tailwind CSS or Bootstrap
+will be used to ensure a responsive and consistent design.
+Dependencies: State management library (e.g., React Context API)
+for efficient data handling
+Deployment: The frontend will be deployed as static files to. a web
+server (e.g., Nginx, Apache) or a cloud-based service (e.g., AWS S3,
+Vercel).
+Client Compatibility: The U! must be compatible with the two most
+recent versions of major web browsers (Chrome, Firefox, Safari, Edge)
+on both desktop and mobile platforms,
+© Backend Environment:
+
+© Framework: Spring Boot (latest stable version, 3.x)
+
+iamneo Complaint Management System-SRS
+
+‘An NIIT Venture
+
+Page 6/24
+

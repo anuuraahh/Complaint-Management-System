@@ -1,0 +1,598 @@
+FR7.3: The system must provide sorting options for the search results
+based on submission date, status, or priority (for future enhancement)
+
+FR8: Dashboard and Reporting (Admin)
+
+* Description: The system will provide an administrative dashboard with key
+metrics and reporting capabilities to monitor the system's overall performance.
+¢ Detailed Sub-Requirements:
+FR8.1: The ADMIN dashboard must display key performance
+indicators (KPIs) such as the total number of complaints, the number of
+complaints by status (e.g., PENDING, RESOLVED), and the average
+resolution time
+FR8.2: The system must provide an option for an ADMIN to generate a
+report of complaints resolved by each EMPLOYEE within a specific
+time frame.
+FR8.3: The system must provide a visual representation (e.g., a bar
+chart) of complaint submission trends over time to identify seasonal or
+recurring issues.
+© FR8.4: Reports must be exportable in a common format, such as CSV
+or PDF.
+
+FR89: Notification System
+
+* Description: The system will provide a non-intrusive notification system to
+inform users about important events, such as a status change or a new
+assignment.
+
+* Detailed Sub-Requirements:
+
+© FR9.1: The system must notify a CITIZEN when the status of their
+submitted complaint changes.
+
+© FR9.2: The system must notify an EMPLOYEE when a new complaint
+is assigned to them.
+
+© FR9.3: The system must send an in-app alert and, upon configuration
+an email notification for each of these events
+
+© FR9.4: Notifications must be archived and viewable within the user's
+dashboard
+
+FR10: User Profile Management
+
+* Description: The system will allow logged-in users to view and update their
+personal profile information. This ensures that user details are kept current
+and accurate
+
+© Detailed Sub-Requirements:
+
+© FR10.1: All user roles (ADMIN, EMPLOYEE, CITIZEN) must be able to
+view their profile information, including their name, email, and contact
+details.
+FR10.2: All user roles must be able to update their profile information.
+FR10.3: The system must validate that a new email address is unique
+before saving the changes to prevent conflicts.
+
+3.3 Performance Requirements
+
+Response Time:
+© API response for a simple data retrieval (e.g. a list of complaints) must
+be less than 500 ms under normal load.
+Complaint submission, including file uploads, must be completed in
+under 2 seconds.
+A search query on a database of up to 50,000 complaints must return
+results in under 2 seconds
+System Capacity: The backend must support at least 1,000 concurrent
+users without significant performance degradation
+© Scalability: The system must be horizontally scalable to handle increased
+user loads and a growing volume of complaint data
+* File Uploads: The system must efficiently handle the upload of files up to a
+
+3.4 Logical Database Requirements
+
+The database schema is designed to be normalized and efficient for the system's
+core functions.
+
+users Table:
+
+iamneo Complaint Management System-SRS
+
+——An NIIT Venture
+Page 14/24
+
+id (BIGINT, PRIMARY KEY, AUTO_INCREMENT, NOT NULL)
+email (VARCHAR(255), UNIQUE, NOT NULL)
+password_hash (VARCHAR(255), NOT NULL)
+role (ENUM(‘ADMIN’, 'EMPLOYEE', 'CITIZEN'), NOT NULL)
+name (VARCHAR(255), NOT NULL)
+
+o phone_number (VARCHAR(20))
+
+© created_at (DATETIME)
+* complaints Table:
+
+© id (BIGINT, PRIMARY KEY, AUTO_INCREMENT, NOT NULL)
+
+© title (VARCHAR(255), NOT NULL)
+
+© description (TEXT, NOT NULL)
+category (VARCHAR(255))
+complainant_id (BIGINT, FOREIGN KEY to users id, NOT NULL)
+assigned_employee_id (BIGINT, FOREIGN KEY to users.id)
+status (ENUM(PENDING', ‘ASSIGNED’, 'IN_PROGRE:
+‘RESOLVED' 'CLOSED') NOT NULL)
+
+complainant_id (BIGINT, FOREIGN KEY to users.id, NOT NULL)
+KEY to users.id)
+IN_PROGRESS’,
+
+assigned_employe
+
+_at (DATETIME, NOT NULL)
+© resolved_at (DATETIME)
+« complaint_updates Table:
+© id (BIGINT, PRIMARY KEY, AUTO_INCREMENT, NOT NULL)
+© complaint_id (BIGINT, FOREIGN KEY to complaints id, NOT NULL)
+user_id (BIGINT, FOREIGN KEY to users id, NOT NULL)
+mment (TEXT)
+status_change_from (VARCHAR(2!
+status_change_to (VARCHAR(255))
+
+timestamp (DATETIME, NOT NULL)
+* attachments Table:
+id (BIGINT, PRIMARY KEY, AUTO_INCREMENT, NOT NULL)
+complaint_id (BIGINT, FOREIGN KEY to complaints.id, NOT NULL)
+
+url (VARCHAR(255), NOT NULL)
+file_name (VARCHAR(25), NOT NULL)
+
+3.5 Design Constraints
+
+© Frameworks: The project must be built on the specified technology stack
+Reactjs, Spring Boot, and MySQL.
+
+Frontend UI: The UI will be developed using a responsive design framework
+to ensure compatibility across devices.
+
+© Backend Code: All database access will be performed via JPA repositories
+and entities
+
+iamneo Complaint Management System-SRS
+
+An NIT Venture
+Page 15/24
+
+* Password Hashing: Passwords must be hashed using the BCrypt algorithm
+with a work factor of at least 10.
+
+* Deployment: The system must be containerized using Docker to facilitate
+deployment and portability
+
+3.6 Software System Attributes
+3.6.1 Reliability
+The system is required to have a high level of reliability.
+
+* Uptime: The system must achieve a minimum of 99.9% uptime for core
+services.
+
+* Error Handling: The system will handle unexpected errors gracefully.
+Backend errors should return meaningful HTTP status codes and JSON error
+messages, The frontend should display user-friendly error messages and log
+technical errors to the console.
+
+* Data Integrity: The system must ensure that data is not corrupted during
+transmission or storage. Database transactions will be used for all multi-step
+operations to prevent partial updates.
+
+3.6.2 Availability
+
+The system will be designed for high availability to ensure it is accessible to users
+whenever needed
+* Service Availability: The complaint submission and tracking services will be
+available for use 24/7. Administrative features will also be available 24/7,
+* Redundancy: The deployment architecture will include redundancy for both
+the application and database servers to minimize single points of failure.
+
+3.6.3 Security
+Security is a top priority for this system.
+
+* Authentication: Authentication will be based on stateless JWTs
+
+* Authorization: Role-based access control will be strictly enforced on all
+
+backend endpoints.
+* Data Encryption: All network traffic will be encrypted using HTTPS.
+
+© Data Encryption: All network traffic will be encrypted using HTTPS.
+© Input Validation: Both the frontend and backend will perform rigorous input
+validation to prevent common attacks such as SQL injection and XSS.
+
+3.6.4 Maintainability
+
+The system's codebase will be designed for long-term maintainability
+
+iamneo Complaint Management Systom-SRS
+
+—An NIIT Venture
+Page 16/24
+
+Modularity: The codebase will have a clear, modular structure with a
+separation of concerns.
+
+* Documentation: Comprehensive intemal code comments and API
+documentation will be provided to aid future development and maintenance
+«Logging: The system will include a detailed logging mechanism to assist with
+debugging and monitoring,
+
+3.6.5 Portability
+
+The system will be portable across different environments.
+
+* Containerization: The use of Docker will ensure that the system can be
+easily deployed and run on any platform.
+
+Configuration: All environment-specific settings will be extemalized and
+managed through environment variables
+
+* Configuration: All environment-specific settings will be extemalized and
+managed through environment variables.
+
+3.7 Other Requirements
+
+* Testing: A minimum of 85% test coverage is required for all backend and
+frontend code. Unit, integration, and end-to-end tests must be written and
+executed as part of the CI/CD pipeline.
+
+* Compliance: The system must comply with relevant data privacy regulations
+and accessibility standards (WCAG 2.1 AA),
+
+* Deployment: The system will be deployed to a production environment using
+a continuous integration and continuous deployment (Cl/CD) pipeline
+
+4. Appendices
+Appendix A: Role Permi
+
+ions Matrix
+
+This matrix details the specific permissions for each user role on various system
+features.
+
+Feature Citizen | Employee | Admin
+
+Login
+
+iamneo Complaint Management System-SRS
+
+——An NIIT Venture
+Page 17/24
+
+Register Account
+
+Submit New Complaint
+
+View Own Complaints
+
+View All Complaints
+
+View Assigned Complaints
+
+Assign Complaints to Employees
+
+Update Complaint Status
+
+Add Comments to Complaint
+
+View Dashboard/Reports
+
+Manage User Accounts
+
+Add Comments to Complaint
+
+View Dashboard/Reports
+
+Manage User Accounts
+
+View Other Employee's Workload
+
+Appendix B: Data Dictionary
+
+iamn eco Complaint Management Systerm-SRS
+
+—An NIIT Venture
+
+Page 18/24
+
+This section defines the key data objects and their attributes used within the system.
+
+* User Object (users table):
+© id: BIGINT, Primary Key. Unique identifier for the user.
+© email: VARCHAR(255), Unique, Not Null. User's email address, used
+
+for Inaiin
+
+This section defines the key data objects and their attributes used within the system.
+
+* User Object (users table):
+© id: BIGINT, Primary Key. Unique identifier for the user.
+© email: VARCHAR(255), Unique, Not Null. User's email address, used
+for login
+password_hash: VARCHAR(255), Not Null. Securely hashed
+password
+role: ENUM(‘ADMIN’, EMPLOYEE’, ‘CITIZEN’), Not Null. The user's
+assigned role.
+name: VARCHAR(255). Full name of the user.
+phone_number: VARCHAR(20). User's contact phone number.
+created_at: DATETIME. Timestamp of user creation.
+* Complaint Object (complaints table):
+© id: BIGINT, Primary Key. Unique identifier for the complaint.
+title: VARCHAR(255), Not Null. A brief, descriptive title of the
+complaint.
+description: TEXT, Not Null. The full, detailed description of the
+complaint.
+category: VARCHAR(255). The category of the complaint (e.g...
+Infrastr ure, Service, Personnel).
+complainant_id: BIGINT, Foreign Key to users.id, Not Null. The user
+who submitted the complaint.
+assigned_employee_id: BIGINT, Foreign Key to users.id. The
+employee assigned to the complaint. Can be NULL
+status: ENUM('PENDING’, ‘ASSIGNED’, 'IN_ PROGRESS’,
+‘RESOLVED, ‘CLOSED’, Not Null. The current status of the complaint.
+submitted_at: DATETIME, Not Null. Timestamp of submission.
+resolved_at: DATETIME. Timestamp when the complaint was marked
+as RESOLVED or CLOSED.
+* Complaint Updates Object (complaint_updates table):
+©. id: BIGINT, Primary Key. Unique identifier for the update record.
+© complaint_id: BIGINT, Foreign Key to complaints.id, Not Null. The
+complaint the update belongs to.
+BIGINT, Foreign Key to users.id, Not Null. The user who
+
+complaint the update belongs to.
+© user_Id: BIGINT, Foreign Key to users.id, Not Null. The user who
+
+made the update.
+
+comment: TEXT. A detailed comment or note about the complaint.
+
+Can be NULL.
+
+status_change_from: VARCHAR(255). The previous status of the
+complaint. Can be NULL,
+
+iamneo Complaint Management System-SRS
+
+—An NIIT Venture
+
+Page 19/24
+
+© status_change_to: VARCHAR(255). The new status of the complaint.
+Can be NULL.
+©. timestamp: DATETIME, Not Null. Timestamp of the update.
+* Attachments Object (attachments table):
+oid: BIGINT, Primary Key. Unique identifier for the attachment.
+complaint_id: BIGINT, Foreign Key to complaints.id, Not Null. The
+complaint the attachment belongs to.
+file_url: VARCHAR(255), Not Null. The URL where the file is stored
+file_name: VARCHAR(255), Not Null. The original name of the
+uploaded file.
+mime_type: VARCHAR(100). The MIME type of the file.
+
+Appendix C: Use Cases
+
+C.1 Use Case: Citizen Submits a Complaint
+
+iamneo Complaint Manag
+
+Actor: Citizen
+Goal: To successfully submit a new complaint through the portal.
+Preconditions: The CITIZEN is logged into the system. The complaint
+submission form is displayed.
+Trigger: The CITIZEN clicks the "Submit" button on the complaint form,
+Main Flow:
+© The CITIZEN fills in the title, description, and selects a category.
+©. The CITIZEN optionally uploads one or more supporting files.
+© The frontend performs client-side validation on mandatory fields
+© The frontend sends a POST request to the /api/complaints endpoint
+with the form data and files
+The backend performs server-side validation on the data
+The backend stores the uploaded files and saves the complaint record
+in the database with a PENDING status.
+The system returns a 201 Created response with the new complaint ID.
+The frontend displays a success message to the CITIZEN anda
+unique complaint ID for tracking
+Alternative Flow:
+© AF-1.1: Invalid Input: If any mandatory fields are missing or invalid
+the backend retums a 400 Bad Request. The frontend displays an error
+message next to the invalid fields.
+2 AF-1.2: Failed File Upload: If file upload fails, the backend returns a
+500 Internal Server Error. The frontend displays an error message
+informing the user that the submission failed
+
+ent System-SRS
+
+——An NIT Venture
+
+Page 20/24
+
+€.2 Use Case: Admin Assigns a Complaint
+
+© Actor: Admin.
+© Goal: To assign a pending complaint to an employee for resolution
+* Preconditions: The ADMIN is logged into the system. There is at least one
+complaint with a PENDING status.
+* Trigger: The ADMIN clicks the "Assign" button for a complaint on the
+management dashboard
+
+Main Flow:
+
+© The ADMIN is presented with a list of available EMPLOYEES.
+
+9 The ADMIN selects an EMPLOYEE from the list.
+
+© The ADMIN clicks a "Confirm Assignment" button.
+
+© The frontend sends a PUT request to the /api/complaints/{id)/assign
+endpoint.
+The backend updates the complaint record with the assigned
+employee's ID.
+The backend changes the complaint's status to ASSIGNED
+The backend creates an entry in the complaint_updates table to log the
+assignment.
+The system returns a 200 OK response.
+The frontend displays a success notification and the complaint's status
+is updated on the dashboard.
+The system sends an in-app notification to the assigned EMPLOYEE.
+* Alternative Flow:
+
+2 AF-2.1: Complaint Already Assigned: If the complaint has already
+
+been assigned to another employee, the backend returns a 409
+Conflict. The frontend displays an error message.
+
+€.3 Use Case: Employee Resolves an Assigned Complaint
+
+* Actor: Employee
+
+Goal: To update the status of an assigned complaint to RESOLVED.
+
+* Preconditions: The EMPLOYEE is logged into the system. A complaint is
+assigned to them with a status of ASSIGNED or IN_PROGRESS.
+
+© Trigger: The EMPLOYEE navigates to the detailed view of an assigned
+
+g oororcerenr ©
+© Trigger: The EMPLOYEE navigates to the detailed view of an assigned
+complaint and attempts to change its status.
+
+© Main Flow:
+
+° The EMPLOYEE reviews the complaint details and investigates the
+
+issue.
+
+° The EMPLOYEE adds a new comment to the complaint, documenting
+
+their resolution,
+
+iamneo Complaint Management System-SRS
+
+——An NIIT Venture
+Page 21/24
+
+The EMPLOYEE changes the complaint's status from its current value
+to RESOLVED.
+The EMPLOYEE clicks "Save Changes."
+The frontend sends a PUT request to the /api/complaints/{id} endpoint.
+The backend validates the changes, updates the status and
+resolved_at timestamp, and creates a new entry in the
+complaint_updates table.
+
+© The system returns a 200 OK response
+
+© The frontend displays a success notification.
+
+© The system sends a notification to the original complainant, informing
+
+them that their complaint has been resolved.
+
+* Alternative Flow:
+AF-3.1: Unauthorized Access: |f the EMPLOYEE attempts to update
+
+* Alternative Flow:
+AF-3.1: Unauthorized Access: If the EMPLOYEE attempts to update
+a complaint not assigned to them, the backend retumns a 403,
+Forbidden error
+
+Appendix D: System Architecture
+
+The Complaint Management System follows a classic two-tier client-server
+architecture
+
+© Client Tier (Frontend): This layer is a browser-based application built with
+React,js. It is responsible for all user-facing interactions, rendering the Ul
+and managing the application's state. It communicates with the backend via
+RESTful API calls. The frontend is responsive and optimized for a variety of
+devices.
+
+© Server Tier (Backend): This layer is a robust, stateless application built with
+Spring Boot. It is responsible for all business logic, data validation, security,
+and communication with the database. It exposes a set of REST endpoints
+that are consumed by the frontend. This tier is designed to be highly scalable
+and is deployed in a containerized environment (e.g., Docker),
+
+* Data Tier (Database): This layer consists of a MySQL database instance. It
+is responsible for the persistent storage of all system data. The backend
+server is the only component with direct access to the database. The schema
+is designed to be normalized and efficient for the system's core functions.
+
+Diagrammatic Representation:
+
+User Browser | <
+
+| Frontend (React
+
+iamneo Complaint Management System-SRS
+
+An NIT Venture
+
+Page 22/24
+Appendix E: Ul Wireframe Descriptions
+
+This appendix provides a high-level description of the key user interface screens to
+guide development and design.
+
+© Login/Registration Page:
+Layout: Centered, minimalist card layout.
+
+2 Components: Two distinct forms. A login form with email and
+password fields and a "Login" button. A registration form with name,
+email, password, and phone fields and a "Register" button. A toggle or
+link to switch between the two forms.
+
+* Complaint Submission Form:
+o_Lavout: A sinale-nane or multi-sten farm.
+
+Appendix E: UI Wireframe Descriptions
+
+This appendix provides a high-level description of the key user interface screens to
+guide development and design
+
+* Login/Registration Page:
+Layout: Centered, minimalist card layout.
+
+2 Components: Two distinct forms. A login form with email and
+password fields and a "Login" button. A registration form with name,
+email, password, and phone fields and a "Register" button. A toggle or
+link to switch between the two forms.
+
+© Complaint Submission Form:
+
+© Layout: A single-page or multi-step form.
+
+Components: Input fields for title, description (multi-line text area), a
+dropdown for category. A drag-and-drop file upload area for
+attachments. A "Submit" button.
+
+e® Admin Dashboard:
+Layout: A fixed sidebar on the left and a main content area on the
+right.
+
+iamneo Complaint Management System-SRS
+
+——An NIT Venture
+
+Page 23/24
+
+© Sidebar: Navigation links for Complaints, Users, and Reports
+2 Main Content: A collection of cards or widgets displaying key metrics
+
+Sidebar: Navigation links tor Complaints, Users, and Reports
+Main Content: A collection of cards or widgets displaying key metrics
+like Total Complaints, Resolved Complaints, and Average Resolution
+Time. A quick-view table of recently submitted complaints.
+© Complaint Management Table:
+Layout: A full-width, responsive table with headers for sorting.
+Components: A search bar at the top right. A filter panel on the left
+with toggles for Status, Category, and Assigned Employee. The main
+table body displays the list of complaints with clickable rows for viewing
+details
+
+Appendix F: Test Plan and Sample Test Cases
+
+This appendix outlines a high-level test plan and provides sample test cases to verify
+the functional requirements.
+
+Test Plan Overview:
+
+The system will be tested using a combination of unit tests, integration tests, and
+end-to-end (E2E) tests
+
+* Unit Tests: Will be written for individual functions, components, and services
+in both the frontend (using Jest) and backend (using JUnit).
+
+* Integration Tests: Wil verify that different modules of the system work
+together correctly (e.g., API calls from the frontend to the backend).
+
+End-to-End Tests: Will simulate user behavior to verify the entire system
+flow, from login to complaint resolution
+
