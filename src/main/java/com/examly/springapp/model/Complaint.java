@@ -72,7 +72,8 @@ public class Complaint {
     @Column(name = "resolved_date")
     private LocalDateTime resolvedDate;
 
-    // Optimistic locking - prevents silent lost updates on concurrent status changes (flagged earlier as a risk)
+
     @Version
     private Long version;
+    
 }

@@ -17,7 +17,7 @@ public class OpenApiConfig {
 
         return new OpenAPI()
                 .info(new Info()
-                        .title("Complaint Management System API")
+                        .title("Complaint Management API")
                         .version("1.0")
                         .description("REST API Documentation"))
                 .addSecurityItem(new SecurityRequirement()
